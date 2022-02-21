@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Facebook, Github, Twitter, Youtube } from "../components/AllSvgs";
 import styled from "styled-components";
 import { darkTheme } from "../components/Themes";
+import { motion } from "framer-motion";
 
 interface SocialIconsProps {
   theme: any;
@@ -23,17 +24,22 @@ const Icons = styled.div`
 
 // got to fix the colour of the line
 
-const Line = styled.span<SocialIconsProps>`
+const Line = styled(motion.span)<SocialIconsProps>`
   width: 2px;
   height: 8rem;
   background-color: ${(props) =>
     props.color === "dark" ? darkTheme.text : darkTheme.body};
 `;
 
-const SocialIcons: React.FC<SocialIconsProps> = (props) => {
+const SocialIcons: React.FC<SocialIconsProps> = ({ theme }) => {
   return (
     <Icons>
-      <div>
+      <motion.div
+        initial={{ transform: "scale(0)" }}
+        animate={{ scale: [0, 1, 1.5, 1] }}
+        transition={{ type: "spring", duration: 1, delay: 1 }}
+      >
+        {" "}
         <NavLink
           style={{ color: "inherit" }}
           target="_blank"
@@ -42,11 +48,16 @@ const SocialIcons: React.FC<SocialIconsProps> = (props) => {
           <Github
             width={25}
             height={25}
-            fill={props.theme === "dark" ? darkTheme.text : darkTheme.body}
+            fill={theme === "dark" ? darkTheme.text : darkTheme.body}
           />
         </NavLink>
-      </div>
-      <div>
+      </motion.div>
+      <motion.div
+        initial={{ transform: "scale(0)" }}
+        animate={{ scale: [0, 1, 1.5, 1] }}
+        transition={{ type: "spring", duration: 1, delay: 1.2 }}
+      >
+        {" "}
         <NavLink
           style={{ color: "inherit" }}
           target="_blank"
@@ -55,11 +66,16 @@ const SocialIcons: React.FC<SocialIconsProps> = (props) => {
           <Twitter
             width={25}
             height={25}
-            fill={props.theme === "dark" ? darkTheme.text : darkTheme.body}
+            fill={theme === "dark" ? darkTheme.text : darkTheme.body}
           />
         </NavLink>
-      </div>
-      <div>
+      </motion.div>
+      <motion.div
+        initial={{ transform: "scale(0)" }}
+        animate={{ scale: [0, 1, 1.5, 1] }}
+        transition={{ type: "spring", duration: 1, delay: 1.4 }}
+      >
+        {" "}
         <NavLink
           style={{ color: "inherit" }}
           target="_blank"
@@ -68,11 +84,16 @@ const SocialIcons: React.FC<SocialIconsProps> = (props) => {
           <Facebook
             width={25}
             height={25}
-            fill={props.theme === "dark" ? darkTheme.text : darkTheme.body}
+            fill={theme === "dark" ? darkTheme.text : darkTheme.body}
           />
         </NavLink>
-      </div>
-      <div>
+      </motion.div>
+      <motion.div
+        initial={{ transform: "scale(0)" }}
+        animate={{ scale: [0, 1, 1.5, 1] }}
+        transition={{ type: "spring", duration: 1, delay: 1.6 }}
+      >
+        {" "}
         <NavLink
           style={{ color: "inherit" }}
           target="_blank"
@@ -81,12 +102,17 @@ const SocialIcons: React.FC<SocialIconsProps> = (props) => {
           <Youtube
             width={25}
             height={25}
-            fill={props.theme === "dark" ? darkTheme.text : darkTheme.body}
+            fill={theme === "dark" ? darkTheme.text : darkTheme.body}
           />
         </NavLink>
-      </div>
+      </motion.div>
 
-      <Line color={props.theme} />
+      <Line
+        color={theme}
+        initial={{ height: 0 }}
+        animate={{ height: "8rem" }}
+        transition={{ type: "spring", duration: 1, delay: 0.8 }}
+      />
     </Icons>
   );
 };

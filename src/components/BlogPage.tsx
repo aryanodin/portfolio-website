@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import img from "../assets/images/background.webp";
 import LogoComponent from "../subComponents/LogoComponent";
@@ -6,10 +6,13 @@ import PowerButton from "../subComponents/PowerButton";
 import SocialIcons from "../subComponents/SocialIcons";
 import { Blogs } from "../data/BlogData";
 import BlogComponent from "./BlogComponent";
+import AnchorComponent from "../subComponents/AnchorComponent";
+import BigTitle from "../subComponents/BigTitle";
+import { motion } from "framer-motion";
 
 interface BlogPageProps {}
 
-const MainContainer = styled.div`
+const MainContainer = styled(motion.div)`
   background-image: url(${img});
   background-size: cover;
   background-repeat: no-repeat;
@@ -38,13 +41,40 @@ const Grid = styled.div`
   grid-gap: calc(1rem + 2vw);
 `;
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.5,
+      duration: 0.5,
+    },
+  },
+};
+
 const BlogPage: React.FC<BlogPageProps> = () => {
+  const [numbers, setNumbers] = useState(0);
+
+  useEffect(() => {
+    let num = (window.innerHeight - 70) / 30;
+    setNumbers(Math.floor(num));
+  }, []);
+
   return (
-    <MainContainer>
+    <MainContainer
+      variants={container}
+      initial="hidden"
+      animate="show"
+      exit={{
+        opacity: 0,
+        transition: { duration: 0.5 },
+      }}
+    >
       <Container>
-        <LogoComponent />
+        <LogoComponent theme={undefined} />
         <PowerButton />
-        <SocialIcons />
+        <SocialIcons theme={undefined} />
+        <AnchorComponent numbers={numbers} />
         <Center>
           <Grid>
             {Blogs.map((blog) => {
@@ -52,6 +82,7 @@ const BlogPage: React.FC<BlogPageProps> = () => {
             })}
           </Grid>
         </Center>
+        <BigTitle text="BLOG" top="5rem" left="5rem" right="" />
       </Container>
     </MainContainer>
   );

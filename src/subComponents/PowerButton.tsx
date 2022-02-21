@@ -2,10 +2,11 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { PowerBtn } from "../components/AllSvgs";
+import { motion } from "framer-motion";
 
 type PowerButtonProps = {};
 
-const Power = styled.button`
+const Power = styled(motion.button)`
   position: fixed;
   top: 2rem;
   left: 50%;
@@ -24,6 +25,7 @@ const Power = styled.button`
   &:hover {
     background-color: rgba(0, 255, 0, 0.4);
     box-shadow: 0 0 8px 6px rgba(0, 255, 0, 0.2);
+    transition: all 0.6s ease;
   }
   & > *:first-child {
     text-decoration: none;
